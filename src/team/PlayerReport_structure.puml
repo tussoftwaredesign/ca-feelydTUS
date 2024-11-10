@@ -1,0 +1,239 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "team.PlayerReport",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_3555933 { 
+   	label=team
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   AttendanceRecord3555933[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)AttendanceRecord</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   attended: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   date: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   type: AttendanceType [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ displayAttendance(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Defender3555933[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Defender</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ expertise(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Forward3555933[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Forward</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ expertise(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MatchAttendance3555933[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MatchAttendance</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   opponent: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ displayAttendance(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Midfielder3555933[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Midfielder</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ expertise(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+PlayPosition3555933[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)PlayPosition</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ expertise(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Player3555933[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Player</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   attendanceRecords: List&lt;AttendanceRecord&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   firstName: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   lastName: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   position: PlayPosition [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   printFullName: PlayerReport [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   printFullNamePosition: PlayerReport [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   teamPosition: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getAttendance(date: String, type: AttendanceType): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAttendance(type: AttendanceType): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getProfile(withPosition: boolean): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getProfile(withPosition: boolean, withStatistics: boolean): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ markAttendance(date: String, attended: boolean, type: AttendanceType, information: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ playerDetails(firstname: String, lastname: String, playerPosition: String): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+PlayerReport3555933[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(I)PlayerReport</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ playerDetails(firstname: String, lastname: String, position: String): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#F1E5FD"
+];
+
+TrainingAttendance3555933[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)TrainingAttendance</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   trainingLocation: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ displayAttendance(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+'edges    
+AttendanceRecord3555933 -> MatchAttendance3555933[arrowhead=none, arrowtail=empty, dir=both];
+AttendanceRecord3555933 -> TrainingAttendance3555933[arrowhead=none, arrowtail=empty, dir=both];
+PlayPosition3555933 -> Defender3555933[arrowhead=none, arrowtail=empty, dir=both];
+PlayPosition3555933 -> Forward3555933[arrowhead=none, arrowtail=empty, dir=both];
+PlayPosition3555933 -> Midfielder3555933[arrowhead=none, arrowtail=empty, dir=both];
+Player3555933 -> AttendanceRecord3555933[label="attendanceRecords
+[0..*]"];
+Player3555933 -> PlayPosition3555933[label="position
+[0..1]"];
+Player3555933 -> PlayerReport3555933[label="printFullName
+[0..1]"];
+Player3555933 -> PlayerReport3555933[label="printFullNamePosition
+[0..1]"];
+PlayerReport3555933 -> Player3555933[arrowhead=none, arrowtail=empty, dir=both];
+    
+}
+@enduml
