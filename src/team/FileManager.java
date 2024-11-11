@@ -25,7 +25,7 @@ public class FileManager {
     // Req 5.2 Handling Checked Exceptions
     public static ArrayList<Player> loadTeamMembers(String fileName)
     {
-        ArrayList<Player> teamMembers = new ArrayList<>();
+        ArrayList<Player> teamMembers ; //= new ArrayList<>();
         File file = new File(fileName);
 
         if (file.exists()) {
