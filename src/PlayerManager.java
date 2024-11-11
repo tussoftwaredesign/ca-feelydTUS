@@ -320,7 +320,7 @@ public class PlayerManager implements MainHelper {
 
         }
         scanner.nextLine();
-        String wait = scanner.nextLine();
+        //String wait = scanner.nextLine();
     }
 
     private static AttendanceType getAttendanceType(Scanner scanner) {
