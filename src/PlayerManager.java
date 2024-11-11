@@ -29,7 +29,7 @@ public class PlayerManager implements MainHelper {
 
         // Calling default greeting
         this.showGreeting();
-        teamMembers = fileManager.loadTeamMembers();
+        teamMembers = fileManager.loadTeamMembers(settings.fileName());
 
         var choice = 0;
         int[] choices = {1,2,3,4,5};

@@ -23,13 +23,13 @@ public class FileManager {
     }
 
     // Req 5.2 Handling Checked Exceptions
-    public static ArrayList<Player> loadTeamMembers()
+    public static ArrayList<Player> loadTeamMembers(String fileName)
     {
         ArrayList<Player> teamMembers = new ArrayList<>();
-        File file = new File(FILE_NAME);
+        File file = new File(fileName);
 
         if (file.exists()) {
-            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
                 teamMembers = (ArrayList<Player>) in.readObject();
                 System.out.println("Loading team information .... ");
                 return teamMembers;
