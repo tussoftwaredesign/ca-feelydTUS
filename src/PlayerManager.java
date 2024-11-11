@@ -292,13 +292,14 @@ public class PlayerManager implements MainHelper {
         System.out.println("\nAttendance for " + date + " (" + type + "):");
         for (Player player : teamMembers) {
             String attended = player.getAttendance(date, type);
+            var addString = "";
             if (attended == null) {
-                //System.out.println(player.getFullName() + ": No record for this date.");
-                sb.append(player.getFullName() + ": No record for this date.\n");
-            } else {
-                sb.append(player.getFullName() + ": " + attended + "\n");
-                //System.out.println(player.getFullName() + ": " + (attended ? "Present" : "Absent"));
+               addString = player.getFullName() + ": No record for this date.\n"
             }
+            else {
+                addString = player.getFullName() + ": " + attended + "\n";
+            }
+            sb.append(addString);
 
         }
         String s = sb.toString();
