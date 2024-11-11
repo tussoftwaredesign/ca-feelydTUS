@@ -227,7 +227,7 @@ public class PlayerManager implements MainHelper {
     {
         System.out.flush();
 
-        System.out.println("Welcome to the Dundrum FC Team Attendance Manager !");
+       // System.out.println("Welcome to the Dundrum FC Team Attendance Manager !");
         System.out.println("1. Manage Teams");
         System.out.println("2. Manage Team Attendance");
         System.out.println("3. View Team Attendance");
