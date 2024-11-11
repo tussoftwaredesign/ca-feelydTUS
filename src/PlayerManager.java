@@ -214,8 +214,8 @@ public class PlayerManager implements MainHelper {
 
                 System.exit(0);
         }
-        choice = 99; //This is an example of changing a pass by value reference.
-        choices[0] = 11; //This is an example of being able to change this object
+        //choice = 99; //This is an example of changing a pass by value reference.
+        //choices[0] = 11; //This is an example of being able to change this object
     }
 
     public void displayMenu()
@@ -294,7 +294,7 @@ public class PlayerManager implements MainHelper {
             String attended = player.getAttendance(date, type);
             var addString = "";
             if (attended == null) {
-               addString = player.getFullName() + ": No record for this date.\n"
+               addString = player.getFullName() + ": No record for this date.\n";
             }
             else {
                 addString = player.getFullName() + ": " + attended + "\n";
