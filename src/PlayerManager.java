@@ -15,7 +15,7 @@ public class PlayerManager implements MainHelper {
     private static ArrayList<Player> teamMembers = new ArrayList<>();
     // 11.1b  Create an instance of the Settings record
     Settings settings = new Settings("c:\\AIDATA\\teamMembers.dat", 25,14);
-    private final FileManager fileManager = new FileManager();
+   // private final FileManager fileManager = new FileManager();
 
     public static void main(String[] args) {
 
@@ -29,7 +29,7 @@ public class PlayerManager implements MainHelper {
 
         // Calling default greeting
         this.showGreeting();
-        teamMembers = fileManager.loadTeamMembers(settings.fileName());
+        teamMembers = FileManager.loadTeamMembers(settings.fileName());
 
         var choice = 0;
         int[] choices = {1,2,3,4,5};
@@ -208,7 +208,7 @@ public class PlayerManager implements MainHelper {
                 break;
             case 5:
                 System.out.println("5. Exiting System .... ");
-                fileManager.saveTeamMembers(teamMembers);
+                FileManager.saveTeamMembers(teamMembers);
                 // Calling say goodbye
                 MainHelper.showFarewell();
 
