@@ -20,6 +20,9 @@ public class PlayerManager implements MainHelper {
 
     public static void main(String[] args) {
 
+        // Virtual Threads (Enhanced in Java 23
+        //Thread.startVirtualThread(() -> System.out.println("Java 23 Running in a virtual thread! This would be awesome for handling large concurrent scale tasks"));
+
         PlayerManager  playerManger = new PlayerManager();
         playerManger.start();
     }
