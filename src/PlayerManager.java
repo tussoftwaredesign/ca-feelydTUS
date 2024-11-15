@@ -15,14 +15,12 @@ public class PlayerManager implements MainHelper {
     // Req 8.2 Using the Array List to store the list of Player Records
     private static ArrayList<Player> teamMembers = new ArrayList<>();
     // 11.1b  Create an instance of the Settings record
-    Settings settings = new Settings("c:\\AIDATA\\teamMembers.dat", 25,14);
-   // private final FileManager fileManager = new FileManager();
+    Settings settings = new Settings("teamMembers.dat", 25,14);
 
     public static void main(String[] args) {
 
         // Virtual Threads (Enhanced in Java 23
         //Thread.startVirtualThread(() -> System.out.println("Java 23 Running in a virtual thread! This would be awesome for handling large concurrent scale tasks"));
-
         PlayerManager  playerManger = new PlayerManager();
         playerManger.start();
     }
@@ -227,9 +225,13 @@ public class PlayerManager implements MainHelper {
         System.out.flush();
 
         System.out.println("1. Manage Teams");
-        System.out.println("2. Manage Team Attendance");
-        System.out.println("3. View Team Attendance");
-        System.out.println("4. Print Team Statistics");
+
+        if (teamMembers != null)
+        {
+            System.out.println("2. Manage Team Attendance");
+            System.out.println("3. View Team Attendance");
+            System.out.println("4. Print Team Statistics");
+        }
         System.out.println("5. Exit System");
     }
 
