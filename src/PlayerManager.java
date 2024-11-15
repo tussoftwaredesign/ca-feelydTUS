@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import team.*;
+
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 
 public class PlayerManager implements MainHelper {
@@ -289,7 +290,13 @@ public class PlayerManager implements MainHelper {
         AttendanceType type = getAttendanceType(scanner);
         if (type == null) return;
 
-        System.out.println("\nAttendance for " + date + " (" + type + "):");
+        // Java 22 Feature - Improved String Templates
+
+//        System.out.println("\nAttendance for " + date + " (" + type + "):");
+        String message = STR."\nAttendance for \{date} , this was a \{type} :";
+        System.out.println(message);
+
+
         for (Player player : teamMembers) {
             String attended = player.getAttendance(date, type);
             var addString = "";
