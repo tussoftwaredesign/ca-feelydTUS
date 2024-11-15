@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class FileManager {
 
-    private static final String FILE_NAME = "c:\\AIDATA\\teamMembers.dat";
+    private static final String FILE_NAME = "teamMembers.dat";
 
     public static void saveTeamMembers(ArrayList<Player> teamMembers)    {
         File file = new File(FILE_NAME);
@@ -29,13 +29,27 @@ public class FileManager {
         ArrayList<Player> teamMembers = new ArrayList<>();
         File file = new File(fileName);
 
+        // This will create a file if it doesn't exist
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        //try {
+        //    System.out.println(file.getCanonicalPath());
+        //} catch (IOException e) {
+        //    throw new RuntimeException(e);
+        //}
+
         if (file.exists()) {
             try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
                 teamMembers = (ArrayList<Player>) in.readObject();
                 System.out.println("Loading team information .... ");
                 return teamMembers;
             } catch (IOException | ClassNotFoundException e) {
-                System.out.println("Error loading team members:" + e.getMessage());
+                System.out.println("Empty team members application, start by adding players:" + e.getMessage());
             }
         }
         return null;
