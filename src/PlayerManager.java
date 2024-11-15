@@ -22,6 +22,10 @@ public class PlayerManager implements MainHelper {
 
         PlayerManager  playerManger = new PlayerManager();
         playerManger.start();
+
+        // Virtual Threads (Enhanced in Java 23
+        Thread.startVirtualThread(() -> System.out.println("Running in a virtual thread! This would be awesome for handling large concurrent scale tasks"));
+
     }
 
     // Req 1.4 LVTI
