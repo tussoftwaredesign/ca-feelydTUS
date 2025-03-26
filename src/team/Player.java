@@ -2,6 +2,7 @@ package team;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 // Req 2.2 Use of Private access Modifiers Encapsulation
 // Req 3.1a Private access Modifiers Also Interface Implemented
@@ -11,6 +12,7 @@ public final class Player implements Serializable , PlayerReport {
     private String firstName;
     private String lastName;
     private String teamPosition;
+    private int age;
     private List<AttendanceRecord> attendanceRecords = new ArrayList<>();
     private PlayPosition position;
 
@@ -19,13 +21,14 @@ public final class Player implements Serializable , PlayerReport {
     private transient PlayerReport printFullNamePosition = (firstname, lastname, teamPosition) -> firstName + " " + lastName + " " + teamPosition;
 
     // Req 1.1 this() and this.
-    public Player(String firstName, String lastName) {
+    public Player(String firstName, String lastName, String age) {
 
         // Assigns the value of local firstname and a last name variable
         // to the firstname and lastname (instance variable).
         this("General");
         this.firstName = firstName;
         this.lastName = lastName;
+        this.age = Integer.valueOf(age);
 
     }
 
@@ -52,6 +55,16 @@ public final class Player implements Serializable , PlayerReport {
         this.firstName = firstName;
     }
 
+    // Getter for first name
+    public int getAge() {
+
+        if (this.age ==0) {
+            this.age = 30;
+        }
+        return this.age;
+    }
+
+
     // Getter for Last name
     public String getLastName() {
         return this.lastName;
@@ -60,6 +73,10 @@ public final class Player implements Serializable , PlayerReport {
     // Getter for Last name
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+    // Getter for Last name
+    public void setAge(int age) {
+        this.age = age;
     }
 
     // Getter for Position
@@ -79,8 +96,15 @@ public final class Player implements Serializable , PlayerReport {
         return printFullName.playerDetails(firstName, lastName, teamPosition);
     }
     // Overloaded method for player profile to get full name and team position if required
+    // OOP2 Req 1.4 Function Lambda
+    // A Function takes one input and returns a transformed output.
     public String getProfile(boolean withPosition) {
-        return firstName + " " + lastName+ " " + teamPosition;
+        //return firstName + " " + lastName+ " " + teamPosition;
+
+        // Function that converts a string to uppercase
+        Function<String, String> toUpperCase = str -> str.toUpperCase();
+        // Apply the Lamda function
+        return  toUpperCase.apply(firstName + " " + lastName+ " " + teamPosition);
     }
     // Overloaded method for player profile to get full name , team position if required
     public String getProfile(boolean withPosition, boolean withStatistics) {
@@ -179,4 +203,10 @@ public final class Player implements Serializable , PlayerReport {
     public String playerDetails(String firstname, String lastname, String playerPosition) {
         return "";
     }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + " (" + teamPosition + ", Age: " + age + ")";
+    }
+
 }
