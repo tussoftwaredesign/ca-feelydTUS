@@ -21,6 +21,7 @@ public final class Player implements Serializable , PlayerReport {
     private transient PlayerReport printFullNamePosition = (firstname, lastname, teamPosition) -> firstName + " " + lastName + " " + teamPosition;
 
     // Req 1.1 this() and this.
+    // OOP2 age added to the class.
     public Player(String firstName, String lastName, String age) {
 
         // Assigns the value of local firstname and a last name variable
