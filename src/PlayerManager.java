@@ -20,7 +20,8 @@ public class PlayerManager implements MainHelper {
     Scanner scanner = new Scanner(System.in);
     // Req 8.2 Using the Array List to store the list of Player Records
     private static ArrayList<Player> teamMembers = new ArrayList<>();
-    // 11.1b  Create an instance of the Settings record
+    // OOP2 Req 8.0 Records Defining and using Records
+    // Create an instance of the Settings record
     Settings settings = new Settings("teamMembers.dat", 25,14);
 
     public static void main(String[] args) {
@@ -262,7 +263,7 @@ public class PlayerManager implements MainHelper {
         System.out.println("5. Exit System");
     }
 
-    // Req 8.3 Using the Date API to display todays date and also format it to the right pattern
+    // OOP2 Req 7.0 Using the Date API to display todays date and also format it to the right pattern
     private static void markAttendance(Scanner scanner) {
         if (teamMembers.isEmpty()) {
             System.out.println("No team members found.");

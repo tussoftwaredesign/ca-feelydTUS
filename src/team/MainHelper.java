@@ -1,8 +1,8 @@
 package team;
 
-// Req 10.1 - Private Interface Example only visible within the Interface
-// Req 10.2 - Default Interface Method - provide a way to add new functionality to an interface without breaking the existing implementations.
-// Req 10.3 - Static Inteface Method - accessed directly in the interface, which can be accessed without creating an instance of the implementing clas
+// OOP2 Req 6 - Private Interface Example only visible within the Interface
+// OOP2 Req 6 - Default Interface Method - provide a way to add new functionality to an interface without breaking the existing implementations.
+// OOP2 Req 6 - Static Inteface Method - accessed directly in the interface, which can be accessed without creating an instance of the implementing clas
 public interface MainHelper {
 
     // Default method that uses private method

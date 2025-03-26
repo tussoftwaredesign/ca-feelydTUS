@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-// Req 2.2 Use of Private access Modifiers Encapsulation
-// Req 3.1a Private access Modifiers Also Interface Implemented
-// Req 7.1 Array List to store the list of Attendance Records
 // OOP2 Project Not Commiting , new token
+// OOP2 Req 6 PLayer Report Impementing Interface Using it
 public final class Player implements Serializable , PlayerReport {
     private static final long serialVersionUID = 1L;
     private String firstName;
