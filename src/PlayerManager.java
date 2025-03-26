@@ -73,13 +73,13 @@ public class PlayerManager implements MainHelper {
         String playerAge = scanner.nextLine();
         teamMembers.add(new Player(firstName, lastName, playerAge));
 
-        String teamAgeGroup = switch (playerAge) {
-            case 1, 2, 3, 4, 5 -> "Weekday";
-            case 6, 7 -> "Weekend";
-            default -> "Invalid Day";
-        };
+        //String teamAgeGroup = switch (playerAge) {
+        //    case 1, 2, 3, 4, 5 -> "Weekday";
+        //    case 6, 7 -> "Weekend";
+        //    default -> "Invalid Day";
+        //};
 
-        System.out.println("Day Type: " + dayType); // Output: Weekday
+        //System.out.println("Day Type: " + dayType); // Output: Weekday
 
         System.out.println("Team member added successfully.");
         System.out.println("Press any key to continue.");
