@@ -14,6 +14,7 @@ import team.*;
 
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 //// OOP2 This is the project for implementing Fundamental and Advanced Features for OOP2 Project
+// New Token
 public class PlayerManager implements MainHelper {
 
     Scanner scanner = new Scanner(System.in);
