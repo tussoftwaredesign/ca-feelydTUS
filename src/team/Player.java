@@ -3,6 +3,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.Comparator;
 
 // OOP2 Project Not Commiting , new token
 // OOP2 Req 6 PLayer Report Impementing Interface Using it
@@ -88,7 +89,11 @@ public final class Player implements Serializable , PlayerReport {
     public void setPosition(String teamPosition) {
         this.teamPosition = teamPosition;
     }
-
+    // OOP2 Req 10
+    // Sorting players by age / List<Player> is a generic type that ensures the list can only contain Player objects.
+    public static void sortPlayersByAge(List<Player> players) {
+        players.sort(Comparator.comparing(Player::getAge));
+    }
 
     // Req 1.2 Method Overloading.
     public String getProfile() {
@@ -156,7 +161,8 @@ public final class Player implements Serializable , PlayerReport {
         return null;
     }
 
-    // operator overloading
+     // OOP2 Req 5  switch expression with pattern matching
+    // switch expression with pattern matching, simplifying type checking and ensuring that the correct attendance count is updated based on the record type.
     public int getAttendance(AttendanceType type)
     {
         int counter = 0;
@@ -167,9 +173,22 @@ public final class Player implements Serializable , PlayerReport {
         }
         for(AttendanceRecord record : attendanceRecords)
         {
-            if (record.getType()==type)
-            {
-                counter = counter + 1;
+            //if (record.getType()==type)
+            //{
+            //    counter = counter + 1;
+            //}
+            switch (record) {
+                case MatchAttendance m -> {
+                    if (type == AttendanceType.MATCH) {
+                        counter++;
+                    }
+                }
+                case TrainingAttendance t -> {
+                    if (type == AttendanceType.TRAINING) {
+                        counter++;
+                    }
+                }
+                default -> {}
             }
         }
 

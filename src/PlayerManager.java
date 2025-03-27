@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.*;
+import java.util.concurrent.*;
 import java.util.stream.*;
 import java.util.function.*;
 import team.*;
@@ -26,18 +27,24 @@ public class PlayerManager implements MainHelper {
 
     public static void main(String[] args) {
 
+        // OOP2 Requirement Req 14
         // Virtual Threads (Enhanced in Java 23
-        //Thread.startVirtualThread(() -> System.out.println("Java 23 Running in a virtual thread! This would be awesome for handling large concurrent scale tasks"));
+        Thread.startVirtualThread(() -> System.out.println("Java 23 Running in a virtual thread! This would be awesome for handling large concurrent scale tasks"));
         PlayerManager  playerManger = new PlayerManager();
         playerManger.start();
     }
 
-    // Req 1.4 LVTI
-    // Req 7.1a Array  Creation and Manipulation
+    // OOP2 Req 13 Localisation Requirement
+    // This demos the use of localisation files and also a nice touch for the french players :)
+    // Don't forget to mark the directory as resources root :)
     public void start() {
 
+        Locale locale = Locale.FRANCE; // Change to Locale.France, etc.
+        ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
+        System.out.println(bundle.getString(this.showGreeting()));
+
         // Calling default greeting
-        this.showGreeting();
+        //this.showGreeting();
         teamMembers = FileManager.loadTeamMembers(settings.fileName());
 
         var choice = 0;
@@ -144,6 +151,9 @@ public class PlayerManager implements MainHelper {
     private static void viewTeamMembers() {
         Scanner scanner = new Scanner(System.in);
 
+
+        // OOP Req 10 Sorting the Player Records
+        Player.sortPlayersByAge(teamMembers);
         if (teamMembers.isEmpty()) {
             System.out.println("No team members found.");
         } else {
@@ -192,6 +202,8 @@ public class PlayerManager implements MainHelper {
             case 2:
                 System.out.println("2. View all players");
                 viewTeamMembers();
+                System.out.println("Printing the players concurrently");
+                processPlayersConcurrently(teamMembers);
                 getForwards();
                 break;
             case 3:
@@ -324,7 +336,7 @@ public class PlayerManager implements MainHelper {
         if (type == null) return;
 
         // Java 22 Feature - Improved String Templates
-
+        // OOP2 Requirement Req 14
 //        System.out.println("\nAttendance for " + date + " (" + type + "):");
         String message = STR."\nAttendance for \{date} , this was a \{type} :";
         System.out.println(message);
@@ -347,6 +359,7 @@ public class PlayerManager implements MainHelper {
     }
     // OOP2 Req 2: Streams Terminal Operations
     // This is a good function to demo the Stream operations on the Array List
+    // These Operations are not processed further just return a final result value.
     private static void viewStatistics(Scanner scanner) {
         if (teamMembers.isEmpty()) {
             System.out.println("No team members found.");
@@ -362,93 +375,94 @@ public class PlayerManager implements MainHelper {
 
         }
 
-        // Req 2: Streams Terminal Operations
-        // Req 2.1: min() - Find youngest player
+        // OOP2 Req 2: Streams Terminal Operations
+        // OOP2 Req 2.1: min() - Find youngest player
         Optional<Player> youngestPlayer = teamMembers.stream().min(Comparator.comparing(Player::getAge));
         System.out.println("Youngest Player: " + youngestPlayer.orElse(null));
 
-        // Req 2.2: max() - Find oldest player
+        // OOP2 Req 2.2: max() - Find oldest player
         Optional<Player> oldestPlayer = teamMembers.stream().max(Comparator.comparing(Player::getAge));
         System.out.println("Oldest Player: " + oldestPlayer.orElse(null));
 
-        // Req 2.3: count() - Count total players
+        // OOP2 Req 2.3: count() - Count total players
         long playerCount = teamMembers.stream().count();
         System.out.println("Total Players: " + playerCount);
 
-        // Req 2.4: findAny() - Find any player
+        // OOP2 Req 2.4: findAny() - Find any player
         Optional<Player> anyPlayer = teamMembers.stream().findAny();
         System.out.println("Find Any: " + anyPlayer.orElse(null));
 
-        // Req 2.5: findFirst() - Find the first player in the list
+        // OOP2 Req 2.5: findFirst() - Find the first player in the list
         Optional<Player> firstPlayer = teamMembers.stream().findFirst();
         System.out.println("Find First: " + firstPlayer.orElse(null));
 
-        // Req 2.6: allMatch() - Check if all players are older than 18
+        // OOP2 Req 2.6: allMatch() - Check if all players are older than 18
         boolean allAbove18 = teamMembers.stream().allMatch(p -> p.getAge() > 18);
         System.out.println("All Players Above 18: " + allAbove18);
 
-        // Req 2.7: anyMatch() - Check if any player is above 30
+        // OOP2 Req 2.7: anyMatch() - Check if any player is above 30
         boolean anyAbove30 = teamMembers.stream().anyMatch(p -> p.getAge() > 30);
         System.out.println("Any Player Above 30: " + anyAbove30);
 
-        // Req 2.8: noneMatch() - Check if no player is younger than 20
+        // OOP2 Req 2.8: noneMatch() - Check if no player is younger than 20
         boolean noBelow20 = teamMembers.stream().noneMatch(p -> p.getAge() < 20);
         System.out.println("No Player Below 20: " + noBelow20);
 
-        // Req 2.9: forEach() - Print all players
+        // OOP2 Req 2.9: forEach() - Print all players
         System.out.println("Team Members:");
         teamMembers.stream().forEach(System.out::println);
 
-        // Req 3: collect() - Collect player ages into a List
+        // OOP2 Req 3: collect() - Collect player ages into a List
+        // Java Stream collect() performs a mutable reduction operation on the elements of the stream. This is a terminal operation.
         List<Integer> playerAges = teamMembers.stream()
                 .map(Player::getAge)
                 .collect(Collectors.toList());
         System.out.println("Collected Ages: " + playerAges);
 
-        // Req 3.1: Collectors.toMap() - Convert Players to a Map (Last Name -> Age)
+        // OOP2 Req 3.1: Collectors.toMap() - Convert Players to a Map (Last Name -> Age)
         Map<String, Integer> playerAgeMap = teamMembers.stream()
                 .collect(Collectors.toMap(Player::getLastName, Player::getAge, (age1, age2) -> age1)); // Handle duplicate last names
         System.out.println("Player Age Map (Last Name -> Age): " + playerAgeMap);
 
-        // Req 3.2: Collectors.groupingBy() - Group players by age group (<25, >=25)
+        // OOP2 Req 3.2: Collectors.groupingBy() - Group players by age group (<25, >=25)
         Map<Boolean, List<Player>> ageGroups = teamMembers.stream()
                 .collect(Collectors.groupingBy(p -> p.getAge() >= 25));
         System.out.println("Grouped by Age (>=25 and <25): " + ageGroups);
 
-        // Req 3.3: Collectors.partitioningBy() - Partition players into young (<26) and old (>=26)
+        // OOP2 Req 3.3: Collectors.partitioningBy() - Partition players into young (<26) and old (>=26)
         Map<Boolean, List<Player>> partitionedByAge = teamMembers.stream()
                 .collect(Collectors.partitioningBy(p -> p.getAge() < 26));
         System.out.println("Partitioned by Age (<26 and >=26): " + partitionedByAge);
 
 
-        // Req 4: Streams Intermediate Operations
-        // Req 4.1: filter() - Get players older than 24
+        // OOP2 Req 4: Streams Intermediate Operations
+        // OOP2 Req 4.1: filter() - Get players older than 24
         List<Player> filteredByAge = teamMembers.stream()
                 .filter(p -> p.getAge() > 24)
                 .collect(Collectors.toList());
         System.out.println("Filtered Players (Age > 24): " + filteredByAge);
 
-        // Req 4.2: distinct() - Get distinct ages
+        // OOP2 Req 4.2: distinct() - Get distinct ages
         List<Integer> distinctAges = teamMembers.stream()
                 .map(Player::getAge)
                 .distinct()
                 .collect(Collectors.toList());
         System.out.println("Distinct Ages: " + distinctAges);
 
-        // Req 4.3: limit() - Get first 3 oldest players
+        // OOP2 Req 4.3: limit() - Get first 3 oldest players
         List<Player> limitedPlayers = teamMembers.stream()
                 .sorted(Comparator.comparing(Player::getAge).reversed())
                 .limit(3)
                 .collect(Collectors.toList());
         System.out.println("Top 3 Oldest Players: " + limitedPlayers);
 
-        // Req 4.4: map() - Convert players to age next year, can they still play u21 :)
+        // OOP2 Req 4.4: map() - Convert players to age next year, can they still play u21 :)
         List<Integer> mappedAges = teamMembers.stream()
                 .map(p -> p.getAge() +1)
                 .collect(Collectors.toList());
         System.out.println("Mapped (Ages Next Year): " + mappedAges);
 
-        // Req 4.5: sorted() - Sort players by age
+        // OOP2 Req 4.5: sorted() - Sort players by age
         List<Player> sortedByAge = teamMembers.stream()
                 .sorted(Comparator.comparing(Player::getAge))
                 .collect(Collectors.toList());
@@ -470,5 +484,25 @@ public class PlayerManager implements MainHelper {
         }
     }
 
+    // OOP2 Req 11 Simple demo of the
+    //  ExecutorService combined with Callable allows you to run multiple tasks in parallel (concurrently) using a thread pool
+    // , improving performance and responsiveness. Although not in this case. if getting the profile was more intensive , it would be usefull
+    // Instead of processing each player one by one, multiple players' profiles can be fetched simultaneously.
+    public static void processPlayersConcurrently(List<Player> players) {
+        ExecutorService executor = Executors.newFixedThreadPool(5);  // Create a pool of 5 threads
+        List<Callable<String>> tasks = players.stream()
+                .map(player -> (Callable<String>) () -> player.getFullName())  // Each task fetches a profile
+                .toList();
 
+        try {
+            List<Future<String>> results = executor.invokeAll(tasks);  // Execute all tasks concurrently
+            for (Future<String> result : results) {
+                System.out.println(result.get());  // Get and print the result (blocking)
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        } finally {
+            executor.shutdown();  // Always shutdown to release resources
+        }
+    }
 }
